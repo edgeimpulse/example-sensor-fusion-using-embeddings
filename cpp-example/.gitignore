@@ -1,0 +1,6 @@
+build/
+*.gcda
+utensor-model/
+CMakeLists.txt
+deploy.zip
+*.o

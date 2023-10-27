@@ -1,0 +1,14 @@
+{
+    "info": {
+        "title": "Image",
+        "author": "Edge Impulse",
+        "description": "Preprocess and normalize image data, and optionally reduce the color depth.",
+        "name": "Image",
+        "cppType": "image_custom",
+        "visualization": "dimensionalityReduction",
+        "experimental": false,
+        "preferConvolution": false,
+        "latestImplementationVersion": 1
+    },
+    "parameters": []
+}

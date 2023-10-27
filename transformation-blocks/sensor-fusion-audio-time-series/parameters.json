@@ -1,0 +1,16 @@
+[
+    {
+        "name": "CSV file",
+        "type": "string",
+        "param": "csv",
+        "value": "",
+        "help": "CSV file name to be merged with audio"
+    },
+    {
+        "name": "Audio file",
+        "type": "string",
+        "param": "audio",
+        "value": "",
+        "help": "Audio file name to be merged with CSV"
+    }
+]

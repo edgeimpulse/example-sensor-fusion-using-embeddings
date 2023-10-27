@@ -1,0 +1,5 @@
+*output/*
+*input/*
+.ei-block-config
+*.zip
+*.DS_Store
