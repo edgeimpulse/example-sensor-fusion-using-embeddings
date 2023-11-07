@@ -22,8 +22,8 @@ int spectrogram_eon_features(signal_t *signal, matrix_t *output_matrix, void *co
         3, // uint16_t implementation_version;
         1, // int axes;
         0.01f, // float frame_length;
-        0.005f, // float frame_stride;
-        128, // int fft_length;
+        0.05f, // float frame_stride;
+        256, // int fft_length;
         -72, // int noise_floor_db;
         false // bool show_axes;
     };
