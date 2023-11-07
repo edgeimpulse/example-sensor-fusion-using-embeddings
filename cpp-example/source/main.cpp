@@ -54,17 +54,26 @@ int spectrogram_eon_features(signal_t *signal, matrix_t *output_matrix, void *co
     }
 
     // 2. run the NN
-    const ei_learning_block_config_tflite_graph_t nn_config = {
-        false, // object_detection
-        EI_CLASSIFIER_LAST_LAYER_UNKNOWN, // object_detection_last_layer
-        0, // tflite_output_data_tensor
-        255, // tflite_output_labels_tensor
-        255, // tflite_output_score_tensor
-        config.input_fn, // model_input
-        config.output_fn, // model_output
-        config.init_fn, // model_init
-        config.invoke_fn, // model_invoke
-        config.reset_fn // model_reset
+    ei_config_tflite_eon_graph_t ei_config_tflite_graph = {
+        .implementation_version = 1,
+        .model_init = config.init_fn,
+        .model_invoke = config.invoke_fn,
+        .model_reset = config.reset_fn,
+        .model_input = config.input_fn,
+        .model_output = config.output_fn,
+    };
+
+    ei_learning_block_config_tflite_graph_t nn_config = {
+        .implementation_version = 1,
+        .block_id = config.block_id,
+        .object_detection = false,
+        .object_detection_last_layer = EI_CLASSIFIER_LAST_LAYER_UNKNOWN,
+        .output_data_tensor = 0,
+        .output_labels_tensor = 255,
+        .output_score_tensor = 255,
+        .quantized = 0,
+        .compiled = 1,
+        .graph_config = &ei_config_tflite_graph
     };
 
     auto x = run_nn_inference_from_dsp(&nn_config, &dsp_signal, output_matrix);
