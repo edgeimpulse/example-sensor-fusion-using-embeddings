@@ -31,22 +31,6 @@
 
 const char* ei_classifier_inferencing_categories[] = { "extract", "grind", "idle", "pump" };
 
-#include "tflite-model/tflite_dsp_40_compiled.h"
-
-uint8_t ei_dsp_config_40_axes[] = { 3 };
-const uint32_t ei_dsp_config_40_axes_size = 1;
-ei_dsp_config_tflite_eon_t ei_dsp_config_40 = {
-    40, // uint32_t blockId
-    3, // int implementationVersion
-    1, // int length of axes
-    tflite_dsp_40_init,
-    tflite_dsp_40_invoke,
-    tflite_dsp_40_reset,
-    tflite_dsp_40_input,
-    tflite_dsp_40_output
-};
-
-
 uint8_t ei_dsp_config_46_axes[] = { 0, 1, 2 };
 const uint32_t ei_dsp_config_46_axes_size = 3;
 ei_dsp_config_spectral_analysis_t ei_dsp_config_46 = {
@@ -70,23 +54,41 @@ ei_dsp_config_spectral_analysis_t ei_dsp_config_46 = {
     false // boolean extra-low-freq
 };
 
-int spectrogram_eon_features(signal_t *signal, matrix_t *output_matrix, void *config_ptr, const float frequency);
+
+#include "tflite-model/tflite_dsp_58_compiled.h"
+
+uint8_t ei_dsp_config_58_axes[] = { 3 };
+const uint32_t ei_dsp_config_58_axes_size = 1;
+ei_dsp_config_tflite_eon_t ei_dsp_config_58 = {
+    58, // uint32_t blockId
+    3, // int implementationVersion
+    1, // int length of axes
+    tflite_dsp_58_init,
+    tflite_dsp_58_invoke,
+    tflite_dsp_58_reset,
+    tflite_dsp_58_input,
+    tflite_dsp_58_output
+};
+
+// Add this line
+int custom_sensor_fusion_features(signal_t *signal, matrix_t *output_matrix, void *config_ptr, const float frequency);
 
 const size_t ei_dsp_blocks_size = 2;
 ei_model_dsp_t ei_dsp_blocks[ei_dsp_blocks_size] = {
-    { // DSP block 40
-        208,
-        &spectrogram_eon_features,
-        (void*)&ei_dsp_config_40,
-        ei_dsp_config_40_axes,
-        ei_dsp_config_40_axes_size
-    },
     { // DSP block 46
         207,
         &extract_spectral_analysis_features,
         (void*)&ei_dsp_config_46,
         ei_dsp_config_46_axes,
         ei_dsp_config_46_axes_size
+    },
+    { // DSP block 58
+        416,
+        // The following line has been changed from &extract_tflite_eon_features to &custom_sensor_fusion_features 
+        &custom_sensor_fusion_features,
+        (void*)&ei_dsp_config_58,
+        ei_dsp_config_58_axes,
+        ei_dsp_config_58_axes_size
     }
 };
 const ei_config_tflite_eon_graph_t ei_config_tflite_graph_8 = {
@@ -129,13 +131,13 @@ const ei_model_performance_calibration_t ei_calibration = {
     0   /* Don't use flags */
 };
 
-const ei_impulse_t impulse_299865_1 = {
+const ei_impulse_t impulse_299865_3 = {
     .project_id = 299865,
     .project_owner = "Developer Relations",
     .project_name = "Audio Sensor Fusion - Step 2",
-    .deploy_version = 1,
+    .deploy_version = 3,
 
-    .nn_input_frame_size = 415,
+    .nn_input_frame_size = 623,
     .raw_sample_count = 20011,
     .raw_samples_per_frame = 4,
     .dsp_input_frame_size = 20011 * 4,
@@ -160,7 +162,7 @@ const ei_impulse_t impulse_299865_1 = {
     .inferencing_engine = EI_CLASSIFIER_TFLITE,
 
     .sensor = EI_CLASSIFIER_SENSOR_FUSION,
-    .fusion_string = "audio + z + y + x",
+    .fusion_string = "z + y + x + audio",
     .slice_size = (20011/4),
     .slices_per_model_window = 4,
 
@@ -170,6 +172,6 @@ const ei_impulse_t impulse_299865_1 = {
     .categories = ei_classifier_inferencing_categories
 };
 
-const ei_impulse_t ei_default_impulse = impulse_299865_1;
+const ei_impulse_t ei_default_impulse = impulse_299865_3;
 
 #endif // _EI_CLASSIFIER_MODEL_METADATA_H_

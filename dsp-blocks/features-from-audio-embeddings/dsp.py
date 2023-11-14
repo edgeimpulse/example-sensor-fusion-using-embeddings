@@ -74,9 +74,9 @@ def invoke(interpreter, item, specific_input_shape):
 
 
 def generate_features(implementation_version, draw_graphs, raw_data, axes, sampling_freq):
-    frame_length = 0.01
-    frame_stride = 0.05
-    fft_length = 256
+    frame_length = 0.032
+    frame_stride = 0.024
+    fft_length = 128
     noise_floor_db = -85
 
     if (implementation_version != 1 and implementation_version != 2 and implementation_version != 3):

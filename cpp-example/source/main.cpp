@@ -13,7 +13,7 @@ static const float features[] = {
 /**
  Custom DSP function implementation
  */
-int spectrogram_eon_features(signal_t *signal, matrix_t *output_matrix, void *config_ptr, const float frequency) {
+int custom_sensor_fusion_features(signal_t *signal, matrix_t *output_matrix, void *config_ptr, const float frequency) {
     ei_dsp_config_tflite_eon_t config = *((ei_dsp_config_tflite_eon_t*)config_ptr);
 
     // 1. we run our spectrogram block...
@@ -21,9 +21,9 @@ int spectrogram_eon_features(signal_t *signal, matrix_t *output_matrix, void *co
         0, // uint32_t block_id;
         3, // uint16_t implementation_version;
         1, // int axes;
-        0.01f, // float frame_length;
-        0.05f, // float frame_stride;
-        256, // int fft_length;
+        0.032f, // float frame_length;
+        0.024f, // float frame_stride;
+        128, // int fft_length;
         -82, // int noise_floor_db;
         false // bool show_axes;
     };

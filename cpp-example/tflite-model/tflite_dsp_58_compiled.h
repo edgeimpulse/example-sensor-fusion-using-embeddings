@@ -18,31 +18,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-// Generated on: 26.10.2023 18:23:45
+// Generated on: 13.11.2023 14:11:20
 
-#ifndef tflite_dsp_40_GEN_H
-#define tflite_dsp_40_GEN_H
+#ifndef tflite_dsp_58_GEN_H
+#define tflite_dsp_58_GEN_H
 
 #include "edge-impulse-sdk/tensorflow/lite/c/common.h"
 
 // Sets up the model with init and prepare steps.
-TfLiteStatus tflite_dsp_40_init( void*(*alloc_fnc)(size_t,size_t) );
+TfLiteStatus tflite_dsp_58_init( void*(*alloc_fnc)(size_t,size_t) );
 // Returns the input tensor with the given index.
-TfLiteStatus tflite_dsp_40_input(int index, TfLiteTensor* tensor);
+TfLiteStatus tflite_dsp_58_input(int index, TfLiteTensor* tensor);
 // Returns the output tensor with the given index.
-TfLiteStatus tflite_dsp_40_output(int index, TfLiteTensor* tensor);
+TfLiteStatus tflite_dsp_58_output(int index, TfLiteTensor* tensor);
 // Runs inference for the model.
-TfLiteStatus tflite_dsp_40_invoke();
+TfLiteStatus tflite_dsp_58_invoke();
 //Frees memory allocated
-TfLiteStatus tflite_dsp_40_reset( void (*free)(void* ptr) );
+TfLiteStatus tflite_dsp_58_reset( void (*free)(void* ptr) );
 
 
 // Returns the number of input tensors.
-inline size_t tflite_dsp_40_inputs() {
+inline size_t tflite_dsp_58_inputs() {
   return 1;
 }
 // Returns the number of output tensors.
-inline size_t tflite_dsp_40_outputs() {
+inline size_t tflite_dsp_58_outputs() {
   return 1;
 }
 
